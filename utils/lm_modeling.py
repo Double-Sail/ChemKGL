@@ -7,7 +7,7 @@ from transformers import AutoModel, AutoTokenizer
 from torch.utils.data import DataLoader
 import numpy as np
 
-pretrained_repo = '/cogbrain/zmliu7/all-roberta-large-v1/sentence-transformers/all-roberta-large-v1'
+pretrained_repo = '/all-roberta-large-v1/sentence-transformers/all-roberta-large-v1'
 batch_size = 256  # Adjust the batch size as needed
 
 
