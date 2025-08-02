@@ -4,7 +4,7 @@ import json
 from tqdm import tqdm
 
 # 初始化模型
-model_id = "/cogbrain_data/fanyang58/models/Meta-Llama-3.1-8B-Instruct/"
+model_id = "/models/Meta-Llama-3.1-8B-Instruct/"
 tokenizer = transformers.AutoTokenizer.from_pretrained(model_id)
 tokenizer.padding_side = 'left'
 # 在tokenizer初始化之后添加
@@ -56,7 +56,7 @@ def batch_inference(batch_data):
 
 
 # 主处理流程
-test_datas = torch.load('/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset/test_data_2000.pt',
+test_datas = torch.load('/code/KGLLM2.0/MyRAG/dataset/mydataset/test_data_2000.pt',
                         weights_only=False)
 
 # 过滤无效数据（提前过滤提升效率）
@@ -73,8 +73,9 @@ with torch.inference_mode():  # 显存优化
         need_dicts.extend(batch_inference(batch))
 
 # 结果保存
-with open('/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/output/mydata/llama8_no_rag_2048.json',
+with open('/code/KGLLM2.0/MyRAG/output/mydata/llama8_no_rag_2048.json',
           'w', encoding='utf-8') as f:
     for item in need_dicts:
         json.dump(item, f, ensure_ascii=False)
         f.write('\n')
+
