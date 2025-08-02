@@ -16,20 +16,6 @@ logging.basicConfig(level=logging.INFO, format='%(message)s',
                     handlers=[logging.FileHandler(f'{os.getcwd()}/logs/train.log', mode='w')])
 logger = logging.getLogger(__name__)
 
-# from peft import (
-#     LoraConfig,
-#     get_peft_model,
-#     prepare_model_for_kbit_training,
-# )
-
-# BOS = '<s>[INST]'
-# EOS_USER = '[/INST]'
-# EOS = '</s>'
-
-# BOS = '<|im_start|>'
-# EOS_USER = '<|im_end|>'
-# EOS = '<|im_start|>'
-
 IGNORE_INDEX = -100
 
 
@@ -362,37 +348,6 @@ class GraphLLM(torch.nn.Module):
 
         return data, desc
 
-    # def text2embedding(self, text:list):
-    #     try:
-    #         encoding = self.embedding_tokenizer(text, padding=True, truncation=True, return_tensors='pt')
-    #         dataset = Dataset(input_ids=encoding.input_ids, attention_mask=encoding.attention_mask)
-    #
-    #         # DataLoader
-    #         dataloader = DataLoader(dataset, shuffle=False)
-    #
-    #         # Placeholder for storing the embeddings
-    #         all_embeddings = []
-    #
-    #         # Iterate through batches
-    #         with torch.no_grad():
-    #
-    #             for batch in dataloader:
-    #                 # Move batch to the appropriate device
-    #                 batch = {key: value.to(self.model.device) for key, value in batch.items()}
-    #
-    #                 # Forward pass
-    #                 embeddings = self.embedding_model(input_ids=batch["input_ids"], att_mask=batch["att_mask"])
-    #
-    #                 # Append the embeddings to the list
-    #                 all_embeddings.append(embeddings)
-    #
-    #         # Concatenate the embeddings from all batches
-    #         all_embeddings = torch.cat(all_embeddings, dim=0).cpu()
-    #
-    #     except:
-    #         return torch.zeros((0, 1024))
-    #
-    #     return all_embeddings
     def text2embedding(self, texts):
         try:
             # Tokenize the list of texts
