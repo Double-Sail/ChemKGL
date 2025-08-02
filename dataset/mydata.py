@@ -5,7 +5,7 @@ from torch.utils.data import Dataset
 import os
 
 # PATH = f'{os.getcwd()}/dataset/mydataset'
-PATH = f'/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset'
+PATH = f''
 
 
 class MyDataset(Dataset):
@@ -117,3 +117,4 @@ Be careful:
 
 if __name__ == '__main__':
     dataset = MyDataset()
+
