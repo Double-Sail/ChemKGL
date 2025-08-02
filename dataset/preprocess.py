@@ -10,7 +10,7 @@ from utils.generate_split import generate_split
 from utils.lm_modeling import load_model, load_text2embedding
 
 model_name = 'sbert'
-path = '/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/expla_graphs'
+path = ''
 dataset = pd.read_csv(f'{path}/train_dev.tsv', sep='\t')
 
 
@@ -84,3 +84,4 @@ if __name__ == '__main__':
     step_one()
     step_two()
     generate_split(len(dataset), f'{path}/split')
+
