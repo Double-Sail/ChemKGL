@@ -35,7 +35,7 @@ from utils.collate import collate_fn
 from retrieval.graph_dao import GraphDao
 
 handlers = [
-    logging.FileHandler('/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/logs/rag.log', mode='w'),
+    logging.FileHandler('', mode='w'),
     logging.StreamHandler()  # 打印到终端
 ]
 # logging.basicConfig(level=logging.INFO, format='%(message)s', handlers=handlers)
@@ -381,7 +381,7 @@ def main(args):
         train_data_save.extend(result)
         progress_bar.update(1)
     logger.info(f'训练剪枝正确率{final_prune_score / len(train_loader)}')
-    torch.save(train_data_save, f'/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset/train_data_{len(train_loader)}.pt')
+    torch.save(train_data_save, f'')
     logger.info('训练集保存完成')
 
     # 测试数据保存
@@ -402,7 +402,7 @@ def main(args):
         test_data_save.extend(result)
         progress_bar.update(1)
     logger.info(f'测试剪枝正确率{final_prune_score / len(test_loader)}')
-    torch.save(test_data_save, f'/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset/test_data_{len(test_loader)}.pt')
+    torch.save(test_data_save, f'')
     logger.info('测试集保存完成')
 
 
@@ -514,12 +514,12 @@ Be careful:
                                "graph": graph,
                                'steps': steps})
 
-    torch.save(need_dicts, '/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset/test_data_120.pt')
+    torch.save(need_dicts, '')
 
 
 if __name__ == '__main__':
-    # loaded_samples = torch.load('/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset/train_data_30000.pt', weights_only=False)
-    # with open('/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset/test_data_2000.json', 'w', encoding='utf-8') as f:
+    # loaded_samples = torch.load('train_data_30000.pt', weights_only=False)
+    # with open('test_data_2000.json', 'w', encoding='utf-8') as f:
     #     for need_jsondict in loaded_samples:
     #         jsondict = {'id': need_jsondict['id'], 'label': need_jsondict['label'], 'question': need_jsondict['question']}
     #         json.dump(jsondict, f, ensure_ascii=False)
@@ -527,7 +527,7 @@ if __name__ == '__main__':
     args = parse_args()
 
     # main(args)
-    generate_120_test_data('/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset/修改测试集/120条交付_test_data_2_5_modify.json')
+    generate_120_test_data('')
 
     torch.cuda.empty_cache()
     torch.cuda.reset_max_memory_allocated()
