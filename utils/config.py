@@ -32,13 +32,13 @@ def parse_args():
     # LLM related
     # parser.add_argument("--llm_model_path", type=str, default='/cogbrain_data/fanyang58/models/Meta-Llama-3.1-8B-Instruct/')
     # parser.add_argument("--llm_model_name", type=str, default='lama-3.1-8b')
-    parser.add_argument("--llm_model_path", type=str, default='/cogbrain_data/fanyang58/models/Qwen2___5-7B-Instruct/')
+    parser.add_argument("--llm_model_path", type=str, default='Qwen2___5-7B-Instruct/')
     parser.add_argument("--llm_model_name", type=str, default='Qwen7')
     # parser.add_argument("--embedding_model_name", type=str, default='sbert')
-    parser.add_argument("--embedding_model_path", type=str, default='/cogbrain/zmliu7/all-roberta-large-v1/sentence-transformers/all-roberta-large-v1')
+    parser.add_argument("--embedding_model_path", type=str, default='/all-roberta-large-v1/sentence-transformers/all-roberta-large-v1')
     parser.add_argument("--llm_frozen", type=str, default='True')
     parser.add_argument("--llm_num_virtual_tokens", type=int, default=10)
-    parser.add_argument("--output_dir", type=str, default='/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/output')
+    parser.add_argument("--output_dir", type=str, default='/code/KGLLM2.0/MyRAG/output')
     parser.add_argument("--max_txt_len", type=int, default=1600)
     parser.add_argument("--max_new_tokens", type=int, default=1600)
 
@@ -61,7 +61,6 @@ def parse_args():
     # prune
     parser.add_argument('--loss', type=str, default='prob_div_log')
     parser.add_argument('--beam_width', type=int, default=3)
-    # todo:这里可能需要根据问题的多跳属性，来判断数字，直接写死不太科学
     parser.add_argument('--jump_num', type=int, default=5)
     parser.add_argument('--process_batch', type=int, default=1)
 
