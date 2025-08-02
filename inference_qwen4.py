@@ -4,8 +4,8 @@ from tqdm import tqdm
 import json
 
 # 配置参数
-MODEL_PATH = "/cogbrain_data/fanyang58/models/Qwen3-4B"
-DATA_PATH = "/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset/test_data_2000.pt"
+MODEL_PATH = "/models/Qwen3-4B"
+DATA_PATH = "/code/KGLLM2.0/MyRAG/dataset/mydataset/test_data_2000.pt"
 BATCH_SIZE = 8  # 根据显存调整
 MAX_NEW_TOKENS = 8192
 DEVICE_MAP = "cuda:1"
@@ -94,7 +94,8 @@ for i in tqdm(range(0, len(valid_datas), BATCH_SIZE), desc="Processing Batches")
     need_dicts.extend(batch_inference(batch))
 
 # 保存结果
-with open("/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/output/mydata/qwen4_no_rag_2048.json", "w", encoding="utf-8") as f:
+with open("/code/KGLLM2.0/MyRAG/output/mydata/qwen4_no_rag_2048.json", "w", encoding="utf-8") as f:
     for item in need_dicts:
         json.dump(item, f, ensure_ascii=False)
         f.write('\n')
+
