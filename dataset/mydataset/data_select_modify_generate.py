@@ -1,9 +1,3 @@
-"""
-包含从原始压缩文件中提取出所需的数据。
-挑选：挑选所需步数的数据。去除不需要的数据（存在问题且无法修改，直接剔除）
-修改：对于存在问题，但是可以修改的数据，修改后予以保存
-生成：生成三元组、图谱、训练数据
-"""
 import os
 import zipfile
 import json
@@ -22,10 +16,8 @@ from urllib.parse import quote
 from datetime import datetime
 import re
 
-# root_path = 'D:\Code\MyRAG\dataset\mydataset'
-root_path = '/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset'
+root_path = '/code/KGLLM2.0/MyRAG/dataset/mydataset'
 base_url = "https://pubchem.ncbi.nlm.nih.gov/rest/pug"
-
 
 def unzip_files_in_directory(input_path, output_path):
     """
@@ -587,7 +579,7 @@ def generate_triples(inputpath, csv_outputpath, train_data_outputpath):
     """
     生成图谱构建所需要的csv文件
     以及训练数据生成所需要的json文件
-    2025-4-9，修改一个版本，将图谱的条件和训练集的条件保持一致
+    将图谱的条件和训练集的条件保持一致
     """
     # total_nodeset = set()
     total_triples = []
@@ -703,7 +695,7 @@ def triple2csv(file_root_path,input_file_path):
 
 def csv2neo4j(node_file, relation_file):
     # 连接到 Neo4j
-    graph = Graph("http://172.31.169.49:7474", auth=("neo4j", "yf939924"))
+    graph = Graph("http://172.31.169.49:7474", auth=("neo4j", "939924"))
     meta_node = Node(
         'Meta',
         id='meta-001',
@@ -728,10 +720,10 @@ def csv2neo4j(node_file, relation_file):
         nodes_dict[id] = neo_node  # 存储创建的节点对象以便后续关系创建使用
     print('节点创建完毕！！！！')
 
-    with open('/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset/nodesdict.json', 'w', encoding='utf-8') as f:
+    with open('/code/KGLLM2.0/MyRAG/dataset/mydataset/nodesdict.json', 'w', encoding='utf-8') as f:
         json.dump(nodes_dict, f, ensure_ascii=False, indent=4)
 
-    # with open('/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset/nodesdict.json', 'r', encoding='utf-8') as f:
+    # with open('/code/KGLLM2.0/MyRAG/dataset/mydataset/nodesdict.json', 'r', encoding='utf-8') as f:
     #     nodes_dict = json.load(f)
 
     # 创建关系
@@ -1176,6 +1168,7 @@ if __name__ == '__main__':
     #         else:
     #             num[steps] = 1
     #     print(num)
+
 
 
 
