@@ -2,7 +2,7 @@ import logging
 import os
 
 handlers = [
-    logging.FileHandler('/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/logs/rag.log', mode='w'),
+    logging.FileHandler('', mode='w'),
     logging.StreamHandler()  # 打印到终端
 ]
 logging.basicConfig(level=logging.INFO, format='%(message)s', handlers=handlers)
@@ -21,34 +21,6 @@ class Extract:
         # self.relation_dict_id2names = relation_dict_id2names
         self._dao = GraphDao(args=args)
 
-    # def relation_prob(self, input_text, candidate_texts):
-    #     # print("input_text", input_text)
-    #     # Calculate probabilities for each candidate sequence
-    #     candidate_probabilities = []
-    #     if self.args.llm_model_name.startswith('llama') or self.args.llm_model_name.startswith('vicuna'):
-    #         input_token = ["<s>"] + self.tokenizer.tokenize(input_text)
-    #     else:
-    #         input_token = self.tokenizer.tokenize(input_text)
-    #     with torch.no_grad():
-    #         for cand_text in candidate_texts:
-    #             if self.args.llm_model_name.startswith('llama') or self.args.llm_model_name.startswith('vicuna'):
-    #                 cand_token = self.tokenizer.tokenize(cand_text)
-    #             else:    #                 cand_token = self.tokenizer.tokenize(' ' + cand_text)
-    #             prompt = torch.tensor([self.tokenizer.convert_tokens_to_ids(input_token + cand_token)])
-    #
-    #             logits = self.model(prompt.to(self.model.device)).logits
-    #             if self.model.dtype == torch.float16:
-    #                 # 16bit的模型，导致后续softmax的值直接为0，这里改为32精度
-    #                 logits = logits.to(torch.float32)
-    #                 # # 提高数值稳定性,防止softmax的值过大或者过小
-    #                 # logits = logits - logits.max(dim=-1, keepdim=True).values
-    #
-    #             probas = torch.softmax(logits, -1).squeeze()
-    #             cand_token_ids = self.tokenizer.convert_tokens_to_ids(cand_token)
-    #             cand_token_prob = probas[torch.arange(len(input_token) - 1, prompt.shape[1] - 1), torch.tensor(cand_token_ids).long()]
-    #             candidate_probabilities.append(torch.cumprod(cand_token_prob, 0).tolist()[-1] ** (1. / len(cand_token_ids)))
-    #
-    #     return torch.tensor(candidate_probabilities).to(self.model.device)
     def relation_prob(self, input_text, candidate_texts):
         # print("input_text", input_text)
         # Calculate probabilities for each candidate sequence
@@ -363,3 +335,4 @@ class Prune:
             pruned_triples = triples[0:(min_index + 1)]
 
         return pruned_facts_str, pruned_triples, entropy_val
+
