@@ -60,63 +60,63 @@ def main(args):
     progress_bar = tqdm(range(num_training_steps))
     best_val_loss = float('inf')
 
-    # for epoch in range(args.num_epochs):
-    #     model.train()
-    #     epoch_loss, accum_loss = 0., 0.
-    #
-    #     for step, batch in enumerate(train_loader):
-    #         try:
-    #             optimizer.zero_grad()
-    #             loss = model(batch)
-    #             loss.backward()
-    #             clip_grad_norm_(optimizer.param_groups[0]['params'], 0.1)
-    #
-    #             if (step + 1) % args.grad_steps == 0:
-    #                 adjust_learning_rate(optimizer.param_groups[0], args.lr, step / len(train_loader) + epoch, args)
-    #
-    #             optimizer.step()
-    #             epoch_loss, accum_loss = epoch_loss + loss.item(), accum_loss + loss.item()
-    #
-    #             if (step + 1) % args.grad_steps == 0:
-    #                 lr = optimizer.param_groups[0]["lr"]
-    #                 writer.add_scalar('Lr', lr, epoch * len(train_loader) + step)
-    #                 writer.add_scalar('Accum Loss', accum_loss / args.grad_steps, epoch * len(train_loader) + step)
-    #                 accum_loss = 0.
-    #
-    #             progress_bar.update(1)
-    #             logger.info(str(progress_bar))
-    #         except Exception as e:
-    #             logger.error(e)
-    #             progress_bar.update(1)
-    #             logger.info(str(progress_bar))
-    #             continue
-    #
-    #     logger.info(f"Epoch: {epoch}|{args.num_epochs}: Train Loss (Epoch Mean): {epoch_loss / len(train_loader)}")
-    #     writer.add_scalar('Train Loss (Epoch Mean)', epoch_loss / len(train_loader), epoch)
-    #
-    #     val_loss = 0.
-    #     model.eval()
-    #     with torch.no_grad():
-    #         for step, batch in enumerate(val_loader):
-    #             loss = model(batch)
-    #             val_loss += loss.item()
-    #         val_loss = val_loss / len(val_loader)
-    #         logger.info(f"Epoch: {epoch}|{args.num_epochs}: Val Loss: {val_loss}")
-    #         writer.add_scalar('Val Loss', val_loss, epoch)
-    #
-    #     if val_loss < best_val_loss:
-    #         best_val_loss = val_loss
-    #         _save_checkpoint(model, optimizer, epoch, args, is_best=True)
-    #         best_epoch = epoch
-    #
-    #     logger.info(f'Epoch {epoch} Val Loss {val_loss} Best Val Loss {best_val_loss} Best Epoch {best_epoch}')
-    #
-    #     if epoch - best_epoch >= args.patience:
-    #         logger.info(f'Early stop at epoch {epoch}')
-    #         break
-    #
-    # torch.cuda.empty_cache()
-    # torch.cuda.reset_max_memory_allocated()
+    for epoch in range(args.num_epochs):
+        model.train()
+        epoch_loss, accum_loss = 0., 0.
+    
+        for step, batch in enumerate(train_loader):
+            try:
+                optimizer.zero_grad()
+                loss = model(batch)
+                loss.backward()
+                clip_grad_norm_(optimizer.param_groups[0]['params'], 0.1)
+    
+                if (step + 1) % args.grad_steps == 0:
+                    adjust_learning_rate(optimizer.param_groups[0], args.lr, step / len(train_loader) + epoch, args)
+    
+                optimizer.step()
+                epoch_loss, accum_loss = epoch_loss + loss.item(), accum_loss + loss.item()
+    
+                if (step + 1) % args.grad_steps == 0:
+                    lr = optimizer.param_groups[0]["lr"]
+                    writer.add_scalar('Lr', lr, epoch * len(train_loader) + step)
+                    writer.add_scalar('Accum Loss', accum_loss / args.grad_steps, epoch * len(train_loader) + step)
+                    accum_loss = 0.
+    
+                progress_bar.update(1)
+                logger.info(str(progress_bar))
+            except Exception as e:
+                logger.error(e)
+                progress_bar.update(1)
+                logger.info(str(progress_bar))
+                continue
+    
+        logger.info(f"Epoch: {epoch}|{args.num_epochs}: Train Loss (Epoch Mean): {epoch_loss / len(train_loader)}")
+        writer.add_scalar('Train Loss (Epoch Mean)', epoch_loss / len(train_loader), epoch)
+    
+        val_loss = 0.
+        model.eval()
+        with torch.no_grad():
+            for step, batch in enumerate(val_loader):
+                loss = model(batch)
+                val_loss += loss.item()
+            val_loss = val_loss / len(val_loader)
+            logger.info(f"Epoch: {epoch}|{args.num_epochs}: Val Loss: {val_loss}")
+            writer.add_scalar('Val Loss', val_loss, epoch)
+    
+        if val_loss < best_val_loss:
+            best_val_loss = val_loss
+            _save_checkpoint(model, optimizer, epoch, args, is_best=True)
+            best_epoch = epoch
+    
+        logger.info(f'Epoch {epoch} Val Loss {val_loss} Best Val Loss {best_val_loss} Best Epoch {best_epoch}')
+    
+        if epoch - best_epoch >= args.patience:
+            logger.info(f'Early stop at epoch {epoch}')
+            break
+    
+    torch.cuda.empty_cache()
+    torch.cuda.reset_max_memory_allocated()
 
     # 步骤5：评估
     model = _reload_best_model(model, args)
@@ -160,7 +160,7 @@ def main(args):
 if __name__ == '__main__':
     args = parse_args()
     handlers = [
-        logging.FileHandler(f'/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/logs/train_{args.llm_model_name}.log', mode='w'),
+        logging.FileHandler(f'/code/KGLLM2.0/MyRAG/logs/train_{args.llm_model_name}.log', mode='w'),
         logging.StreamHandler()  # 打印到终端
     ]
     # logging.basicConfig(level=logging.INFO, format='%(message)s', handlers=handlers)
@@ -172,3 +172,4 @@ if __name__ == '__main__':
     torch.cuda.empty_cache()
     torch.cuda.reset_max_memory_allocated()
     gc.collect()
+
