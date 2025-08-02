@@ -126,9 +126,9 @@ def connect_neo4j(url, user, password):
 
 
 if __name__ == '__main__':
-    # dataset_name = 'grag'
-    # three_couple_2_csv('/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/expla_graphs', dataset_name)
-    # csv2neo4j('/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/expla_graphs/nodes.csv', '/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/expla_graphs/relation_id2name2id.csv')
+    dataset_name = 'grag'
+    three_couple_2_csv('/code/KGLLM2.0/MyRAG/dataset/expla_graphs', dataset_name)
+    csv2neo4j('/code/KGLLM2.0/MyRAG/dataset/expla_graphs/nodes.csv', '/code/KGLLM2.0/MyRAG/dataset/expla_graphs/relation_id2name2id.csv')
 
     graph = Graph("http://172.31.169.49:7474", auth=("neo4j", "yf939924"))
     meta_node = Node(
@@ -143,3 +143,4 @@ if __name__ == '__main__':
     )
     graph.create(meta_node)
     pass
+
