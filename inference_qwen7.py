@@ -4,8 +4,8 @@ import json
 from tqdm import tqdm
 
 # 配置参数
-MODEL_PATH = "/cogbrain_data/fanyang58/models/Qwen2___5-7B-Instruct"
-DATA_PATH = "/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/dataset/mydataset/test_data_2000.pt"
+MODEL_PATH = "/models/Qwen2___5-7B-Instruct"
+DATA_PATH = "/code/KGLLM2.0/MyRAG/dataset/mydataset/test_data_2000.pt"
 BATCH_SIZE = 8
 MAX_NEW_TOKENS = 4096
 DEVICE_MAP = "cuda:1"
@@ -95,7 +95,8 @@ if __name__ == "__main__":
                 raise e
 
     # 保存结果
-    with open("/cogbrain/yjsun14/code/KGLLM2.0/MyRAG/output/mydata/qwen7_no_rag_2048.json", "w", encoding="utf-8") as f:
+    with open("/code/KGLLM2.0/MyRAG/output/mydata/qwen7_no_rag_2048.json", "w", encoding="utf-8") as f:
         for item in need_dicts:
             json.dump(item, f, ensure_ascii=False)
             f.write('\n')
+
