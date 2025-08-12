@@ -1,0 +1,11 @@
+python train.py \
+    --device 1 \
+    --num_epochs 1 \
+    --batch_size 1 \
+    --eval_batch_size 16 \
+    --llm_model_name 'lama-3.1-8b' \
+    --llm_model_path "/cogbrain/zmliu7/Meta-Llama-3.1-8B-Instruct/" \
+    --embedding_model_path "/cogbrain/zmliu7/all-roberta-large-v1/sentence-transformers/all-roberta-large-v1" \
+    --output_dir "output" \
+    --max_txt_len 1600 \
+    --max_new_tokens 1600
