@@ -1,0 +1,20 @@
+neo4j:
+  uri: ip_address
+  user: admin
+  password: passwd
+
+model:
+  type: local               # dummy | local
+  model_path: Qwen2___5-7B-Instruct
+  device: cuda:3
+  max_new_tokens: 256
+
+mcts:
+  iterations: 100
+  max_depth: 5
+  max_width: 3
+  exploration_constant: 1.4
+  top_k_expansions: 3
+
+output:
+  top_k_paths: 1
