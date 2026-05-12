@@ -185,3 +185,8 @@ oMeBench需要单独构建图谱，运行`\oMeBench-main\scripts\generate_graph.
 
 - 请参考论文附录提供的评分提示模板（Prompt）进行自动评估。
 - 计算不同模型在多步化学反应推理任务中的评分。
+
+---------------
+
+## 📣 附录
+IJCAI__ECAI_26_ChemKGL__Camera_Ready__appendix.pdf为原始论文的Appendix文件，若需要阅读论文的附录部分，可以参考此文件。
